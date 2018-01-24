@@ -32,7 +32,7 @@ request.open("GET", "http://localhost:3000/shit", true);
    		 if (request.readyState === 4 && request.status === 200) {
     		try {
     			var response = JSON.parse(request.responseText);
-                // console.log(response);
+                 console.log(response);
     			someJSON = response;
                 setupMenus();
                 drawToken();
@@ -50,34 +50,34 @@ function addItem(theIndex, useColorBool, theColor) {
     console.log("useColorBool: "+useColorBool);
     console.log("theColor: "+theColor);
     var newItemIndex;
-    switch (someJSON.items[theIndex].PartLayer){
+    switch (someJSON[theIndex].PartLayer){
         case "feet":
-            newItemIndex = tokenLayers.feet.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.feet.push(someJSON[theIndex]);
             tokenLayers.feet[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.feet[newItemIndex-1].Color = theColor;            
         break;
         case "legs":
-            newItemIndex = tokenLayers.legs.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.legs.push(someJSON[theIndex]);
             tokenLayers.legs[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.legs[newItemIndex-1].Color = theColor; 
         break;
         case "waist":
-            newItemIndex = tokenLayers.waist.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.waist.push(someJSON[theIndex]);
             tokenLayers.waist[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.waist[newItemIndex-1].Color = theColor; 
         break;
         case "torso":
-            newItemIndex = tokenLayers.torso.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.torso.push(someJSON[theIndex]);
             tokenLayers.torso[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.torso[newItemIndex-1].Color = theColor; 
         break;
         case "arms":
-            newItemIndex = tokenLayers.arms.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.arms.push(someJSON[theIndex]);
             tokenLayers.arms[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.arms[newItemIndex-1].Color = theColor; 
         break;
         case "head":
-            newItemIndex = tokenLayers.head.push(someJSON.items[theIndex]);
+            newItemIndex = tokenLayers.head.push(someJSON[theIndex]);
             tokenLayers.head[newItemIndex-1].UseColor = useColorBool;
             tokenLayers.head[newItemIndex-1].Color = theColor; 
         break;
@@ -86,41 +86,41 @@ function addItem(theIndex, useColorBool, theColor) {
 
 function removeItem(theIndex) {
     console.log("in removeItem "+theIndex);
-    switch (someJSON.items[theIndex].PartLayer){
+    switch (someJSON[theIndex].PartLayer){
         case "feet":
-        var targetIndex = tokenLayers.feet.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.feet.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.feet.splice(targetIndex,1);
         break;
         case "legs":
-        var targetIndex = tokenLayers.legs.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.legs.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.legs.splice(targetIndex,1);
-        //tokenLayers.legs.push(someJSON.items[theIndex]);
+        //tokenLayers.legs.push(someJSON[theIndex]);
         break;
         case "waist":
-        var targetIndex = tokenLayers.waist.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.waist.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.waist.splice(targetIndex,1);
-        //tokenLayers.waist.push(someJSON.items[theIndex]);
+        //tokenLayers.waist.push(someJSON[theIndex]);
         break;
         case "torso":
-        var targetIndex = tokenLayers.torso.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.torso.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.torso.splice(targetIndex,1);
-        //tokenLayers.torso.push(someJSON.items[theIndex]);
+        //tokenLayers.torso.push(someJSON[theIndex]);
         break;
         case "arms":
-        var targetIndex = tokenLayers.arms.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.arms.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.arms.splice(targetIndex,1);
-        //tokenLayers.arms.push(someJSON.items[theIndex]);
+        //tokenLayers.arms.push(someJSON[theIndex]);
         break;
         case "head":
-        var targetIndex = tokenLayers.head.findIndex(i => i.ItemId === someJSON.items[theIndex].ItemId);
+        var targetIndex = tokenLayers.head.findIndex(i => i.ItemId === someJSON[theIndex].ItemId);
         console.log("located at: "+targetIndex);
         tokenLayers.head.splice(targetIndex,1);
-        //tokenLayers.head.push(someJSON.items[theIndex]);
+        //tokenLayers.head.push(someJSON[theIndex]);
         break;
     }//end switch
 }//end removeItem
@@ -148,7 +148,7 @@ function menuActions() {
         if (this.checked) {
             //if draw box being checked all we do is add to our token
             console.log(this.value + "draw is checked");
-            addItem(this.value, someJSON.items[this.value].UseColor, someJSON.items[this.value].Color);
+            addItem(this.value, someJSON[this.value].UseColor, someJSON[this.value].Color);
             
         } else {
             //if draw box being UNhecked then uncheck tint as well
@@ -169,7 +169,7 @@ function menuActions() {
 //NEED to find the partLayer that we're in so we can replace "head" below with the correct part
 //THEN lastly in that partLayer, find targetIndex and set UseColor to false!!
             console.log(this.value + "tint is UNchecked")
-            var targetIndex = tokenLayers.head.findIndex(i => i.ItemId === someJSON.items[this.value].ItemId);
+            var targetIndex = tokenLayers.head.findIndex(i => i.ItemId === someJSON[this.value].ItemId);
             console.log("tint uncheck located at: "+targetIndex);
             //tokenLayers.head.splice(targetIndex,1);
         }//end checked or unchecked
@@ -181,7 +181,8 @@ function menuActions() {
 function setupMenus() {
     var i;
 
-    for (i = 0; i < someJSON.items.length; i++) { 
+    //for (i = 0; i < someJSON.items.length; i++) { 
+    for (i = 0; i < someJSON.length; i++) { 
 
                 //create a LI
         //create a sub UL with markers off
@@ -214,7 +215,7 @@ function setupMenus() {
         var ItemDetails = document.createElement("DETAILS");
         var ItemSummary = document.createElement("SUMMARY");
         //create a text node with ItemName
-        var itemULName = document.createTextNode(someJSON.items[i].ItemName);
+        var itemULName = document.createTextNode(someJSON[i].ItemName);
         //create a sub UL with markers off - append to details item
         var ItemUL = document.createElement("UL");
         //assign the text node ItemName to the summary of details item
@@ -266,7 +267,7 @@ function setupMenus() {
             colorInput.setAttribute("type", "color");
             colorInput.setAttribute("id", "colorInput");
             colorInput.setAttribute("name", "color");
-            colorInput.setAttribute("value", someJSON.items[i].Color); 
+            colorInput.setAttribute("value", someJSON[i].Color); 
             //onclick if tint is checked then menuActions & ste color to color input
             //colorInput.onclick = something;/////////////////////////////////////FIX////////////////////
             //append LI to UL
@@ -277,7 +278,7 @@ function setupMenus() {
 
 
 
-        switch (someJSON.items[i].PartLayer){
+        switch (someJSON[i].PartLayer){
         case "feet":
         feetMenu.appendChild(itemLI);
         break;
